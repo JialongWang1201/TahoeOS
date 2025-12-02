@@ -1,0 +1,17 @@
+# Ignore hardware and 3D models
+Hardware/
+3D Modle/
+
+# macOS junk
+.DS_Store
+**/.DS_Store
+**/__pycache__/
+
+*.uvguix.kingham
+
+
+**/.vscode/
+
+# CMake/build outputs
+**/build/
+**/build_*/
