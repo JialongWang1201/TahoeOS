@@ -22,6 +22,7 @@
 #include "stm32f4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "usart.h"
 #include "key.h"
 #include "power.h"
 /* USER CODE END Includes */
@@ -238,11 +239,15 @@ void USART1_IRQHandler(void)
     {
       recv_len = HARDINT_RX_BUF_SIZE - 1;
     }
+    HardInt_receive_str[recv_len] = '\0';
     HardInt_receive_len = recv_len;
     HardInt_uart_flag = 1;
     __HAL_UART_CLEAR_FLAG(&huart1,UART_FLAG_IDLE);
     HAL_UART_DMAStop(&huart1);
-    HAL_UART_Receive_DMA(&huart1, HardInt_receive_str, HARDINT_RX_BUF_SIZE);
+    if (USART1_StartRxDmaIdle(HardInt_receive_str, HARDINT_RX_BUF_SIZE) != HAL_OK)
+    {
+      Error_Handler();
+    }
   }
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);

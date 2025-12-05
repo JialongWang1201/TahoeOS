@@ -41,6 +41,7 @@ extern UART_HandleTypeDef huart1;
 void MX_USART1_UART_Init(void);
 
 /* USER CODE BEGIN Prototypes */
+HAL_StatusTypeDef USART1_StartRxDmaIdle(uint8_t *rx_buffer, uint16_t rx_buffer_size);
 
 /* USER CODE END Prototypes */
 
@@ -49,4 +50,3 @@ void MX_USART1_UART_Init(void);
 #endif
 
 #endif /* __USART_H__ */
-
