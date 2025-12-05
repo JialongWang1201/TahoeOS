@@ -151,6 +151,10 @@ void StopEnterTask(void *argument)
 			{
 				Error_Handler();
 			}
+			if (USART1_StartRxDmaIdle(HardInt_receive_str, HARDINT_RX_BUF_SIZE) != HAL_OK)
+			{
+				Error_Handler();
+			}
 			//lcd
 			LCD_Init();
 			LCD_Set_Light(ui_LightSliderValue);

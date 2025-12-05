@@ -163,4 +163,20 @@ int fputc(int ch, FILE *f)
   HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 0xffff);
   return ch;
 }
+
+HAL_StatusTypeDef USART1_StartRxDmaIdle(uint8_t *rx_buffer, uint16_t rx_buffer_size)
+{
+  if (rx_buffer == NULL || rx_buffer_size < 2U)
+  {
+    return HAL_ERROR;
+  }
+
+  if (HAL_UART_Receive_DMA(&huart1, rx_buffer, rx_buffer_size) != HAL_OK)
+  {
+    return HAL_ERROR;
+  }
+
+  __HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);
+  return HAL_OK;
+}
 /* USER CODE END 1 */
