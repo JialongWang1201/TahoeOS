@@ -115,7 +115,7 @@ void CST816_Get_XY_AXIS(void)
 	uint8_t DAT[4];
 	IIC_Read_Multi_Byte(&CST816_dev,Device_Addr,XposH,4,DAT);
 	CST816_Instance.X_Pos=((DAT[0]&0x0F)<<8)|DAT[1];//(temp[0]&0X0F)<<4|
-	CST816_Instance.Y_Pos=((DAT[2]&0x0F)<<8)|DAT[3] + TOUCH_OFFSET_Y;//(temp[2]&0X0F)<<4|
+	CST816_Instance.Y_Pos=(((DAT[2]&0x0F)<<8)|DAT[3]) + TOUCH_OFFSET_Y;//(temp[2]&0X0F)<<4|
 }
 
 
