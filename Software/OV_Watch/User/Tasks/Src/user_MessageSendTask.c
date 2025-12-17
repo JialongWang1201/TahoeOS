@@ -63,6 +63,38 @@ static struct
   RTC_TimeTypeDef nowtime;
 } TimeSetMessage;
 
+static uint8_t BleProto_IsLeapYear(uint16_t year)
+{
+  if ((year % 400U) == 0U)
+  {
+    return 1U;
+  }
+  if ((year % 100U) == 0U)
+  {
+    return 0U;
+  }
+  return (uint8_t)((year % 4U) == 0U);
+}
+
+static uint8_t BleProto_IsValidDate(uint16_t year, uint8_t month, uint8_t date)
+{
+  static const uint8_t days_per_month[12] = {31U, 28U, 31U, 30U, 31U, 30U, 31U, 31U, 30U, 31U, 30U, 31U};
+  uint8_t max_date;
+
+  if (month < 1U || month > 12U || date < 1U)
+  {
+    return 0U;
+  }
+
+  max_date = days_per_month[month - 1U];
+  if (month == 2U && BleProto_IsLeapYear(year))
+  {
+    max_date = 29U;
+  }
+
+  return (uint8_t)(date <= max_date);
+}
+
 /* Private function prototypes -----------------------------------------------*/
 static const char * user_SPO2StateToString(uint8_t state)
 {
@@ -99,17 +131,27 @@ void StrCMD_Get(uint8_t *str, uint8_t *cmd)
 // set time // OV+ST=20230629125555
 uint8_t TimeFormat_Get(uint8_t *str)
 {
+  uint8_t idx;
   TimeSetMessage.nowdate.Year = (str[8] - '0') * 10 + str[9] - '0';
   TimeSetMessage.nowdate.Month = (str[10] - '0') * 10 + str[11] - '0';
   TimeSetMessage.nowdate.Date = (str[12] - '0') * 10 + str[13] - '0';
   TimeSetMessage.nowtime.Hours = (str[14] - '0') * 10 + str[15] - '0';
   TimeSetMessage.nowtime.Minutes = (str[16] - '0') * 10 + str[17] - '0';
   TimeSetMessage.nowtime.Seconds = (str[18] - '0') * 10 + str[19] - '0';
-  if (TimeSetMessage.nowdate.Year > 0 && TimeSetMessage.nowdate.Year < 99 && TimeSetMessage.nowdate.Month > 0 &&
-      TimeSetMessage.nowdate.Month <= 12 && TimeSetMessage.nowdate.Date > 0 && TimeSetMessage.nowdate.Date <= 31 &&
-      TimeSetMessage.nowtime.Hours >= 0 && TimeSetMessage.nowtime.Hours <= 23 &&
-      TimeSetMessage.nowtime.Minutes >= 0 && TimeSetMessage.nowtime.Minutes <= 59 &&
-      TimeSetMessage.nowtime.Seconds >= 0 && TimeSetMessage.nowtime.Seconds <= 59)
+
+  for (idx = 6U; idx < 20U; idx++)
+  {
+    if (str[idx] < '0' || str[idx] > '9')
+    {
+      return 0;
+    }
+  }
+
+  if (TimeSetMessage.nowdate.Year > 0 && TimeSetMessage.nowdate.Year < 99 &&
+      BleProto_IsValidDate((uint16_t)(2000U + TimeSetMessage.nowdate.Year), TimeSetMessage.nowdate.Month,
+                           TimeSetMessage.nowdate.Date) &&
+      TimeSetMessage.nowtime.Hours <= 23 && TimeSetMessage.nowtime.Minutes <= 59 &&
+      TimeSetMessage.nowtime.Seconds <= 59)
   {
     RTC_SetDate(TimeSetMessage.nowdate.Year, TimeSetMessage.nowdate.Month, TimeSetMessage.nowdate.Date);
     RTC_SetTime(TimeSetMessage.nowtime.Hours, TimeSetMessage.nowtime.Minutes, TimeSetMessage.nowtime.Seconds);
@@ -289,8 +331,8 @@ static uint8_t BleProto_ParseDateTime14(const char *text, RTC_DateTypeDef *out_d
   minutes = (uint8_t)((text[10] - '0') * 10U + (text[11] - '0'));
   seconds = (uint8_t)((text[12] - '0') * 10U + (text[13] - '0'));
 
-  if (year < 2000U || year > 2099U || month < 1U || month > 12U || date < 1U || date > 31U || hours > 23U ||
-      minutes > 59U || seconds > 59U)
+  if (year < 2000U || year > 2099U || !BleProto_IsValidDate(year, month, date) || hours > 23U || minutes > 59U ||
+      seconds > 59U)
   {
     return 0;
   }
