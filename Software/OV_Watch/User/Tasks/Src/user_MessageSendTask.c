@@ -1611,7 +1611,11 @@ void MessageSendTask(void *argument)
 			uint8_t IdleBreakstr = 0;
 			osMessageQueuePut(IdleBreak_MessageQueue, &IdleBreakstr, 0, 1);
 			printf("RecStr:%s\r\n",HardInt_receive_str);
-			if(!strcmp(HardInt_receive_str,"OV"))
+			if(HardInt_receive_str[0] == '#')
+			{
+				BleProto_HandleFrame((char *)HardInt_receive_str);
+			}
+			else if(!strcmp(HardInt_receive_str,"OV"))
 			{
 				printf("OK\r\n");
 			}
