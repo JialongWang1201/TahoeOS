@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.20)
 project(OV_Watch C ASM)
 
 if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE Debug)
+  set(CMAKE_BUILD_TYPE MinSizeRel CACHE STRING "Build type" FORCE)
 endif()
 
 set(CMAKE_C_STANDARD 99)
