@@ -3,7 +3,7 @@ import argparse
 import json
 import sys
 from dataclasses import dataclass
-from typing import Optional
+from typing import Any, Optional
 
 
 CRC16_INIT = 0xFFFF
@@ -45,6 +45,56 @@ def build_response(seq: int, ack: str, code: int, payload: str) -> str:
     body = f"{seq}|{ack}|{code}|{payload}"
     crc = crc16_ccitt(body.encode("ascii"))
     return f"#{len(body):03d}|{body}|{crc:04X}"
+
+
+def build_gadgetbridge_request(seq: int, event_text: str) -> str:
+    try:
+        event = json.loads(event_text)
+    except json.JSONDecodeError as exc:
+        raise ValueError("invalid Gadgetbridge JSON") from exc
+
+    if not isinstance(event, dict):
+        raise ValueError("Gadgetbridge event must be a JSON object")
+
+    event_type = event.get("t")
+    if not isinstance(event_type, str) or not event_type:
+        raise ValueError("Gadgetbridge event must include string field 't'")
+
+    if event_type == "notify":
+        body = event.get("body", event.get("text", ""))
+        title = event.get("title", "")
+        if not isinstance(body, str) or not body:
+            raise ValueError("notify event requires non-empty 'body' or 'text'")
+        if not isinstance(title, str):
+            raise ValueError("notify title must be a string")
+        return build_request(seq, "PUSH_NOTIFY", f"title={title},body={body}")
+
+    if event_type == "weather":
+        temp = event.get("temp")
+        low = event.get("low", temp)
+        high = event.get("high", temp)
+        text = event.get("text", event.get("txt", "Weather"))
+        if not isinstance(temp, int):
+            raise ValueError("weather event requires integer 'temp'")
+        if not isinstance(low, int) or not isinstance(high, int):
+            raise ValueError("weather low/high must be integers")
+        if not isinstance(text, str) or not text:
+            raise ValueError("weather text/txt must be a non-empty string")
+        return build_request(seq, "SET_WEATHER", f"temp={temp},low={low},high={high},text={text}")
+
+    if event_type == "find":
+        enabled = event.get("n", True)
+        if not isinstance(enabled, bool):
+            raise ValueError("find event field 'n' must be boolean")
+        return build_request(seq, "FIND_WATCH", "state=1" if enabled else "state=0")
+
+    if event_type == "time":
+        datetime_text: Any = event.get("datetime", event.get("date"))
+        if not isinstance(datetime_text, str) or len(datetime_text) != 14 or not datetime_text.isdigit():
+            raise ValueError("time event requires 14-digit 'datetime' or 'date'")
+        return build_request(seq, "SET_TIME", f"datetime={datetime_text}")
+
+    raise ValueError(f"unsupported Gadgetbridge event type: {event_type}")
 
 
 def parse_frame(frame_text: str) -> Frame:
@@ -186,6 +236,10 @@ def parse_args() -> argparse.Namespace:
     p_send.add_argument("--payload", default="")
     p_send.add_argument("--json", action="store_true")
 
+    p_gb = sub.add_parser("encode-gb", help="translate a Gadgetbridge-style JSON event into a request frame")
+    p_gb.add_argument("--seq", type=int, required=True)
+    p_gb.add_argument("--event", required=True)
+
     return parser.parse_args()
 
 
@@ -207,6 +261,10 @@ def main() -> int:
         if args.subcmd == "send":
             frame_text = build_request(args.seq, args.command, args.payload)
             return send_frame(args.port, args.baud, args.timeout_s, frame_text, args.json)
+
+        if args.subcmd == "encode-gb":
+            print(build_gadgetbridge_request(args.seq, args.event))
+            return 0
     except ValueError as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 2

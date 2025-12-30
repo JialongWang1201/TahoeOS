@@ -52,6 +52,26 @@ weather_json="$(python3 tools/ble_proto.py decode "$req_weather")"
 printf '%s\n' "$weather_json" | grep '"cmd": "GET_WEATHER"'
 printf '%s\n' "$weather_json" | grep '"seq": 16'
 
+gb_notify="$(python3 tools/ble_proto.py encode-gb --seq 21 --event '{"t":"notify","title":"Phone","body":"Ping from Gadgetbridge"}')"
+gb_notify_json="$(python3 tools/ble_proto.py decode "$gb_notify")"
+printf '%s\n' "$gb_notify_json" | grep '"cmd": "PUSH_NOTIFY"'
+printf '%s\n' "$gb_notify_json" | grep 'title=Phone,body=Ping from Gadgetbridge'
+
+gb_weather="$(python3 tools/ble_proto.py encode-gb --seq 22 --event '{"t":"weather","temp":24,"low":19,"high":27,"txt":"Rain"}')"
+gb_weather_json="$(python3 tools/ble_proto.py decode "$gb_weather")"
+printf '%s\n' "$gb_weather_json" | grep '"cmd": "SET_WEATHER"'
+printf '%s\n' "$gb_weather_json" | grep 'temp=24,low=19,high=27,text=Rain'
+
+gb_find="$(python3 tools/ble_proto.py encode-gb --seq 23 --event '{"t":"find","n":true}')"
+gb_find_json="$(python3 tools/ble_proto.py decode "$gb_find")"
+printf '%s\n' "$gb_find_json" | grep '"cmd": "FIND_WATCH"'
+printf '%s\n' "$gb_find_json" | grep '"payload": "state=1"'
+
+gb_time="$(python3 tools/ble_proto.py encode-gb --seq 24 --event '{"t":"time","datetime":"20260320153045"}')"
+gb_time_json="$(python3 tools/ble_proto.py decode "$gb_time")"
+printf '%s\n' "$gb_time_json" | grep '"cmd": "SET_TIME"'
+printf '%s\n' "$gb_time_json" | grep 'datetime=20260320153045'
+
 resp_ok="$(python3 tools/ble_proto.py encode-response --seq 8 --ack ACK --code 0 --payload 'datetime=20260308153045')"
 resp_json="$(python3 tools/ble_proto.py decode "$resp_ok")"
 printf '%s\n' "$resp_json" | grep '"type": "response"'
