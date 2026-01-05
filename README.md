@@ -80,14 +80,7 @@ flowchart LR
     Boot["0x08000000<br/>BootLoader<br/>32 KB"] --> Flag["0x08008000<br/>APP FLAG<br/>16 KB"] --> App["0x0800C000<br/>Application"]
 ```
 
-<details>
-<summary>Open the original software structure image from the repository</summary>
-
-<p align="center">
-  <img src="./images/software%20structure.jpg" alt="software structure" width="88%">
-</p>
-
-</details>
+The original software structure image has been removed from the repository to keep the source tree smaller.
 
 ## Repository Map
 
