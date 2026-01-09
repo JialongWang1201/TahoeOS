@@ -52,10 +52,10 @@ void ui_HRPage_screen_init(void)
     lv_obj_set_x(ui_HRPageUnitLabel, 85);
     lv_obj_set_y(ui_HRPageUnitLabel, 18);
     lv_obj_set_align(ui_HRPageUnitLabel, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_HRPageUnitLabel, "次/分");
+    lv_label_set_text(ui_HRPageUnitLabel, "bpm");
     lv_obj_set_style_text_color(ui_HRPageUnitLabel, lv_color_hex(0x808080), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_HRPageUnitLabel, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_HRPageUnitLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_HRPageUnitLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_HRPaggiconLabel = lv_label_create(ui_HRPage);
     lv_obj_set_width(ui_HRPaggiconLabel, LV_SIZE_CONTENT);   /// 1
@@ -74,10 +74,10 @@ void ui_HRPage_screen_init(void)
     lv_obj_set_x(ui_HRPageNoticeLabel, 0);
     lv_obj_set_y(ui_HRPageNoticeLabel, 90);
     lv_obj_set_align(ui_HRPageNoticeLabel, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_HRPageNoticeLabel, "正在测量...");
+    lv_label_set_text(ui_HRPageNoticeLabel, "Measuring...");
     lv_obj_set_style_text_color(ui_HRPageNoticeLabel, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_HRPageNoticeLabel, 220, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_HRPageNoticeLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_HRPageNoticeLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     //timer
     ui_HRPageTimer = lv_timer_create(HRPage_timer_cb, 50,  NULL);

@@ -268,8 +268,8 @@ void ui_DateTimeSetPage_screen_init(void)
     lv_obj_set_x(ui_APPSyLabel, 20);
     lv_obj_set_y(ui_APPSyLabel, 0);
     lv_obj_set_align(ui_APPSyLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_APPSyLabel, "同步APP");
-    lv_obj_set_style_text_font(ui_APPSyLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_APPSyLabel, "Sync App");
+    lv_obj_set_style_text_font(ui_APPSyLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_DateSetPanel = lv_obj_create(ui_DateTimeSetPage);
     lv_obj_set_width(ui_DateSetPanel, 240);
@@ -291,8 +291,8 @@ void ui_DateTimeSetPage_screen_init(void)
     lv_obj_set_x(ui_DateSetLabel, 20);
     lv_obj_set_y(ui_DateSetLabel, 0);
     lv_obj_set_align(ui_DateSetLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_DateSetLabel, "日期设置");
-    lv_obj_set_style_text_font(ui_DateSetLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_DateSetLabel, "Date");
+    lv_obj_set_style_text_font(ui_DateSetLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_DateSetLabel1 = lv_label_create(ui_DateSetPanel);
     lv_obj_set_width(ui_DateSetLabel1, LV_SIZE_CONTENT);   /// 1
@@ -301,7 +301,7 @@ void ui_DateTimeSetPage_screen_init(void)
     lv_obj_set_y(ui_DateSetLabel1, -15);
     lv_obj_set_align(ui_DateSetLabel1, LV_ALIGN_RIGHT_MID);
     lv_label_set_text(ui_DateSetLabel1, ".");
-    lv_obj_set_style_text_font(ui_DateSetLabel1, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_DateSetLabel1, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_DateSetLabel2 = lv_label_create(ui_DateSetPanel);
     lv_obj_set_width(ui_DateSetLabel2, LV_SIZE_CONTENT);   /// 1
@@ -310,7 +310,7 @@ void ui_DateTimeSetPage_screen_init(void)
     lv_obj_set_y(ui_DateSetLabel2, -5);
     lv_obj_set_align(ui_DateSetLabel2, LV_ALIGN_RIGHT_MID);
     lv_label_set_text(ui_DateSetLabel2, ".");
-    lv_obj_set_style_text_font(ui_DateSetLabel2, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_DateSetLabel2, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_DateSetLabel3 = lv_label_create(ui_DateSetPanel);
     lv_obj_set_width(ui_DateSetLabel3, LV_SIZE_CONTENT);   /// 1
@@ -319,7 +319,7 @@ void ui_DateTimeSetPage_screen_init(void)
     lv_obj_set_y(ui_DateSetLabel3, 5);
     lv_obj_set_align(ui_DateSetLabel3, LV_ALIGN_RIGHT_MID);
     lv_label_set_text(ui_DateSetLabel3, ".");
-    lv_obj_set_style_text_font(ui_DateSetLabel3, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_DateSetLabel3, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_TimeSetPanel = lv_obj_create(ui_DateTimeSetPage);
     lv_obj_set_width(ui_TimeSetPanel, 240);
@@ -341,8 +341,8 @@ void ui_DateTimeSetPage_screen_init(void)
     lv_obj_set_x(ui_TimeSetLabel, 20);
     lv_obj_set_y(ui_TimeSetLabel, 0);
     lv_obj_set_align(ui_TimeSetLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_TimeSetLabel, "时间设置");
-    lv_obj_set_style_text_font(ui_TimeSetLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_TimeSetLabel, "Time");
+    lv_obj_set_style_text_font(ui_TimeSetLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_TimeSetLabel1 = lv_label_create(ui_TimeSetPanel);
     lv_obj_set_width(ui_TimeSetLabel1, LV_SIZE_CONTENT);   /// 1
@@ -351,7 +351,7 @@ void ui_DateTimeSetPage_screen_init(void)
     lv_obj_set_y(ui_TimeSetLabel1, -15);
     lv_obj_set_align(ui_TimeSetLabel1, LV_ALIGN_RIGHT_MID);
     lv_label_set_text(ui_TimeSetLabel1, ".");
-    lv_obj_set_style_text_font(ui_TimeSetLabel1, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_TimeSetLabel1, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_TimeSetLabel2 = lv_label_create(ui_TimeSetPanel);
     lv_obj_set_width(ui_TimeSetLabel2, LV_SIZE_CONTENT);   /// 1
@@ -360,7 +360,7 @@ void ui_DateTimeSetPage_screen_init(void)
     lv_obj_set_y(ui_TimeSetLabel2, -5);
     lv_obj_set_align(ui_TimeSetLabel2, LV_ALIGN_RIGHT_MID);
     lv_label_set_text(ui_TimeSetLabel2, ".");
-    lv_obj_set_style_text_font(ui_TimeSetLabel2, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_TimeSetLabel2, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_TimeSetLabel3 = lv_label_create(ui_TimeSetPanel);
     lv_obj_set_width(ui_TimeSetLabel3, LV_SIZE_CONTENT);   /// 1
@@ -369,7 +369,7 @@ void ui_DateTimeSetPage_screen_init(void)
     lv_obj_set_y(ui_TimeSetLabel3, 5);
     lv_obj_set_align(ui_TimeSetLabel3, LV_ALIGN_RIGHT_MID);
     lv_label_set_text(ui_TimeSetLabel3, ".");
-    lv_obj_set_style_text_font(ui_TimeSetLabel3, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_TimeSetLabel3, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_AlarmSetPanel = lv_obj_create(ui_DateTimeSetPage);
     lv_obj_set_width(ui_AlarmSetPanel, 240);
@@ -391,8 +391,8 @@ void ui_DateTimeSetPage_screen_init(void)
     lv_obj_set_x(ui_AlarmSetLabel, 20);
     lv_obj_set_y(ui_AlarmSetLabel, 0);
     lv_obj_set_align(ui_AlarmSetLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_AlarmSetLabel, "闹钟");
-    lv_obj_set_style_text_font(ui_AlarmSetLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_AlarmSetLabel, "Alarm");
+    lv_obj_set_style_text_font(ui_AlarmSetLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_AlarmValueLabel = lv_label_create(ui_AlarmSetPanel);
     lv_obj_set_width(ui_AlarmValueLabel, LV_SIZE_CONTENT);   /// 1
@@ -652,8 +652,8 @@ void ui_AlarmSetPage_screen_init(void)
     lv_obj_set_x(ui_AlarmEnableLabel, 20);
     lv_obj_set_y(ui_AlarmEnableLabel, 0);
     lv_obj_set_align(ui_AlarmEnableLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_AlarmEnableLabel, "每日闹钟");
-    lv_obj_set_style_text_font(ui_AlarmEnableLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_AlarmEnableLabel, "Daily Alarm");
+    lv_obj_set_style_text_font(ui_AlarmEnableLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_AlarmEnableSwitch = lv_switch_create(ui_AlarmEnablePanel);
     lv_obj_set_width(ui_AlarmEnableSwitch, 55);
@@ -728,8 +728,8 @@ void ui_AlarmSetPage_screen_init(void)
 
     ui_AlarmSaveLabel = lv_label_create(ui_AlarmSaveButton);
     lv_obj_set_align(ui_AlarmSaveLabel, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_AlarmSaveLabel, "保存");
-    lv_obj_set_style_text_font(ui_AlarmSaveLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_AlarmSaveLabel, "Save");
+    lv_obj_set_style_text_font(ui_AlarmSaveLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_add_event_cb(ui_AlarmSaveButton, ui_event_AlarmSaveButton, LV_EVENT_ALL, NULL);
 }
@@ -747,7 +747,7 @@ void ui_AlarmReminderPage_screen_init(void)
     lv_obj_set_align(ui_AlarmReminderTitle, LV_ALIGN_TOP_MID);
     lv_obj_set_y(ui_AlarmReminderTitle, 28);
     lv_label_set_text(ui_AlarmReminderTitle, "Alarm");
-    lv_obj_set_style_text_font(ui_AlarmReminderTitle, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_AlarmReminderTitle, &lv_font_montserrat_20, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(ui_AlarmReminderTitle, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
 
     snprintf(alarm_time_text, sizeof(alarm_time_text), "%02u:%02u", g_app_data.alarm_hour, g_app_data.alarm_minute);
@@ -762,7 +762,7 @@ void ui_AlarmReminderPage_screen_init(void)
     lv_obj_set_align(ui_AlarmReminderHintLabel, LV_ALIGN_CENTER);
     lv_obj_set_y(ui_AlarmReminderHintLabel, 34);
     lv_label_set_text(ui_AlarmReminderHintLabel, "Press any key to dismiss");
-    lv_obj_set_style_text_font(ui_AlarmReminderHintLabel, &ui_font_Cuyuan18, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_AlarmReminderHintLabel, &lv_font_montserrat_16, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(ui_AlarmReminderHintLabel, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_AlarmReminderStopButton = lv_btn_create(ui_AlarmReminderPage);
@@ -777,7 +777,7 @@ void ui_AlarmReminderPage_screen_init(void)
     ui_AlarmReminderStopLabel = lv_label_create(ui_AlarmReminderStopButton);
     lv_obj_set_align(ui_AlarmReminderStopLabel, LV_ALIGN_CENTER);
     lv_label_set_text(ui_AlarmReminderStopLabel, "Dismiss");
-    lv_obj_set_style_text_font(ui_AlarmReminderStopLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_AlarmReminderStopLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(ui_AlarmReminderStopLabel, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_add_event_cb(ui_AlarmReminderStopButton, ui_event_AlarmReminderStopButton, LV_EVENT_ALL, NULL);

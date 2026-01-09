@@ -131,8 +131,8 @@ void ui_GameSelectPage_screen_init(void)
     lv_obj_set_x(ui_GameMemLabel, 60);
     lv_obj_set_y(ui_GameMemLabel, 0);
     lv_obj_set_align(ui_GameMemLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_GameMemLabel, "记忆方块");
-    lv_obj_set_style_text_font(ui_GameMemLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_GameMemLabel, "Memory");
+    lv_obj_set_style_text_font(ui_GameMemLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     //ball
     ui_GameBallPanel = lv_obj_create(ui_GameSelectPage);
@@ -172,8 +172,8 @@ void ui_GameSelectPage_screen_init(void)
     lv_obj_set_x(ui_GameBallLabel, 60);
     lv_obj_set_y(ui_GameBallLabel, 0);
     lv_obj_set_align(ui_GameBallLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_GameBallLabel, "反 弹 球");
-    lv_obj_set_style_text_font(ui_GameBallLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_GameBallLabel, "Bounce Ball");
+    lv_obj_set_style_text_font(ui_GameBallLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
 
 		lv_obj_add_event_cb(ui_GameSelectPage, ui_event_GameSelectPage, LV_EVENT_ALL, NULL);
