@@ -486,10 +486,10 @@ void ui_HomePage_screen_init(void)
     lv_obj_set_x(ui_StepCnLabel, -40);
     lv_obj_set_y(ui_StepCnLabel, -5);
     lv_obj_set_align(ui_StepCnLabel, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_StepCnLabel, "今日步数");
+    lv_label_set_text(ui_StepCnLabel, "Today Steps");
     lv_obj_set_style_text_color(ui_StepCnLabel, lv_color_hex(0x3278FF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_StepCnLabel, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_StepCnLabel, &ui_font_Cuyuan18, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_StepCnLabel, &lv_font_montserrat_14, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_StepNumLabel = lv_label_create(ui_HomePage);
     lv_obj_set_width(ui_StepNumLabel, LV_SIZE_CONTENT);   /// 1
@@ -830,10 +830,10 @@ void ui_PowerPage_screen_init(void)
     lv_obj_set_width(ui_PowerDownLabel, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_PowerDownLabel, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_align(ui_PowerDownLabel, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_PowerDownLabel, "滑动关机");
+    lv_label_set_text(ui_PowerDownLabel, "Slide to Power Off");
     lv_obj_set_style_text_color(ui_PowerDownLabel, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_PowerDownLabel, 200, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_PowerDownLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_PowerDownLabel, &lv_font_montserrat_16, LV_PART_MAIN | LV_STATE_DEFAULT);
 
 		//events
 		lv_obj_add_event_cb(ui_PowerSlider, ui_event_PowerSlider, LV_EVENT_ALL, NULL);
@@ -852,7 +852,7 @@ void ui_RemoteAlertPage_screen_init(void)
     lv_obj_set_y(ui_RemoteAlertTitle, 34);
     lv_label_set_text(ui_RemoteAlertTitle, ui_RemoteAlertTitleText);
     lv_obj_set_style_text_color(ui_RemoteAlertTitle, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_RemoteAlertTitle, &ui_font_Cuyuan24, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_RemoteAlertTitle, &lv_font_montserrat_20, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_RemoteAlertLabel = lv_label_create(ui_RemoteAlertPage);
     lv_obj_set_width(ui_RemoteAlertLabel, 180);
@@ -862,7 +862,7 @@ void ui_RemoteAlertPage_screen_init(void)
     lv_label_set_long_mode(ui_RemoteAlertLabel, LV_LABEL_LONG_WRAP);
     lv_obj_set_style_text_align(ui_RemoteAlertLabel, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(ui_RemoteAlertLabel, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_RemoteAlertLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_RemoteAlertLabel, &lv_font_montserrat_16, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_RemoteAlertButton = lv_btn_create(ui_RemoteAlertPage);
     lv_obj_set_width(ui_RemoteAlertButton, 170);
@@ -876,7 +876,7 @@ void ui_RemoteAlertPage_screen_init(void)
     ui_RemoteAlertButtonLabel = lv_label_create(ui_RemoteAlertButton);
     lv_obj_set_align(ui_RemoteAlertButtonLabel, LV_ALIGN_CENTER);
     lv_label_set_text(ui_RemoteAlertButtonLabel, "Dismiss");
-    lv_obj_set_style_text_font(ui_RemoteAlertButtonLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_RemoteAlertButtonLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(ui_RemoteAlertButtonLabel, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_add_event_cb(ui_RemoteAlertButton, ui_event_RemoteAlertButton, LV_EVENT_ALL, NULL);

@@ -180,16 +180,16 @@ void ui_Game2048Page_screen_init(void)
     lv_obj_align(new_game_btn, LV_ALIGN_TOP_LEFT, 12, 8);
     lv_obj_set_size(new_game_btn,85,35);
     lv_obj_t * new_game_btn_label = lv_label_create(new_game_btn);
-    lv_label_set_text(new_game_btn_label,"重 玩");
+    lv_label_set_text(new_game_btn_label,"Replay");
     lv_obj_align(new_game_btn_label, LV_ALIGN_CENTER, 0, 0);
-    lv_obj_set_style_text_font(new_game_btn_label, &ui_font_Cuyuan20, 0);
+    lv_obj_set_style_text_font(new_game_btn_label, &lv_font_montserrat_16, 0);
 
     ui_Game2048ScLabel = lv_label_create(ui_Game2048Page);
     char strbuf[16];
     snprintf(strbuf, sizeof(strbuf), "Score:%d", Game_2048.score);
     lv_label_set_text(ui_Game2048ScLabel,strbuf);
     lv_obj_align(ui_Game2048ScLabel, LV_ALIGN_TOP_RIGHT, -10, 15);
-    lv_obj_set_style_text_font(ui_Game2048ScLabel, &ui_font_Cuyuan20, 0);
+    lv_obj_set_style_text_font(ui_Game2048ScLabel, &lv_font_montserrat_16, 0);
 
 
     lv_obj_add_event_cb(ui_Game2048Page, ui_event_Game2048Page, LV_EVENT_ALL, NULL);

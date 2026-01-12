@@ -357,8 +357,8 @@ void ui_MenuPage_screen_init(void)
     lv_obj_set_x(ui_MenuCalLabel, 60);
     lv_obj_set_y(ui_MenuCalLabel, 0);
     lv_obj_set_align(ui_MenuCalLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_MenuCalLabel, "日 历");
-    lv_obj_set_style_text_font(ui_MenuCalLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_MenuCalLabel, "Calendar");
+    lv_obj_set_style_text_font(ui_MenuCalLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_MenuComPanel = lv_obj_create(ui_MenuPage);
     lv_obj_set_width(ui_MenuComPanel, 240);
@@ -398,8 +398,8 @@ void ui_MenuPage_screen_init(void)
     lv_obj_set_x(ui_MenuComLabel, 60);
     lv_obj_set_y(ui_MenuComLabel, 0);
     lv_obj_set_align(ui_MenuComLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_MenuComLabel, "计 算 器");
-    lv_obj_set_style_text_font(ui_MenuComLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_MenuComLabel, "Calculator");
+    lv_obj_set_style_text_font(ui_MenuComLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_MenuTimPanel = lv_obj_create(ui_MenuPage);
     lv_obj_set_width(ui_MenuTimPanel, 240);
@@ -439,8 +439,8 @@ void ui_MenuPage_screen_init(void)
     lv_obj_set_x(ui_MenuTimLabel, 60);
     lv_obj_set_y(ui_MenuTimLabel, 0);
     lv_obj_set_align(ui_MenuTimLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_MenuTimLabel, "秒 表");
-    lv_obj_set_style_text_font(ui_MenuTimLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_MenuTimLabel, "Stopwatch");
+    lv_obj_set_style_text_font(ui_MenuTimLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_MenuCardPanel = lv_obj_create(ui_MenuPage);
     lv_obj_set_width(ui_MenuCardPanel, 240);
@@ -480,8 +480,8 @@ void ui_MenuPage_screen_init(void)
     lv_obj_set_x(ui_MenuCardLabel, 60);
     lv_obj_set_y(ui_MenuCardLabel, 0);
     lv_obj_set_align(ui_MenuCardLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_MenuCardLabel, "卡 包");
-    lv_obj_set_style_text_font(ui_MenuCardLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_MenuCardLabel, "Wallet");
+    lv_obj_set_style_text_font(ui_MenuCardLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_MenuSprPanel = lv_obj_create(ui_MenuPage);
     lv_obj_set_width(ui_MenuSprPanel, 240);
@@ -521,8 +521,8 @@ void ui_MenuPage_screen_init(void)
     lv_obj_set_x(ui_MenuSprLabel, 60);
     lv_obj_set_y(ui_MenuSprLabel, 0);
     lv_obj_set_align(ui_MenuSprLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_MenuSprLabel, "运 动");
-    lv_obj_set_style_text_font(ui_MenuSprLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_MenuSprLabel, "Workout");
+    lv_obj_set_style_text_font(ui_MenuSprLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_MenuHRPanel = lv_obj_create(ui_MenuPage);
     lv_obj_set_width(ui_MenuHRPanel, 240);
@@ -562,8 +562,8 @@ void ui_MenuPage_screen_init(void)
     lv_obj_set_x(ui_MenuHRLabel, 60);
     lv_obj_set_y(ui_MenuHRLabel, 0);
     lv_obj_set_align(ui_MenuHRLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_MenuHRLabel, "心 率");
-    lv_obj_set_style_text_font(ui_MenuHRLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_MenuHRLabel, "Heart Rate");
+    lv_obj_set_style_text_font(ui_MenuHRLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_MenuO2Panel = lv_obj_create(ui_MenuPage);
     lv_obj_set_width(ui_MenuO2Panel, 240);
@@ -605,8 +605,8 @@ void ui_MenuPage_screen_init(void)
     lv_obj_set_x(ui_MenuO2Label, 60);
     lv_obj_set_y(ui_MenuO2Label, 0);
     lv_obj_set_align(ui_MenuO2Label, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_MenuO2Label, "血 氧");
-    lv_obj_set_style_text_font(ui_MenuO2Label, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_MenuO2Label, "SpO2");
+    lv_obj_set_style_text_font(ui_MenuO2Label, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_MenuEnvPanel = lv_obj_create(ui_MenuPage);
     lv_obj_set_width(ui_MenuEnvPanel, 240);
@@ -646,8 +646,8 @@ void ui_MenuPage_screen_init(void)
     lv_obj_set_x(ui_MenuEnvLabel, 60);
     lv_obj_set_y(ui_MenuEnvLabel, 0);
     lv_obj_set_align(ui_MenuEnvLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_MenuEnvLabel, "环 境");
-    lv_obj_set_style_text_font(ui_MenuEnvLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_MenuEnvLabel, "Environment");
+    lv_obj_set_style_text_font(ui_MenuEnvLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_MenuCPPanel = lv_obj_create(ui_MenuPage);
     lv_obj_set_width(ui_MenuCPPanel, 240);
@@ -687,8 +687,8 @@ void ui_MenuPage_screen_init(void)
     lv_obj_set_x(ui_MenuCPLabel, 60);
     lv_obj_set_y(ui_MenuCPLabel, 0);
     lv_obj_set_align(ui_MenuCPLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_MenuCPLabel, "指 南 针");
-    lv_obj_set_style_text_font(ui_MenuCPLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_MenuCPLabel, "Compass");
+    lv_obj_set_style_text_font(ui_MenuCPLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_MenuGamePanel = lv_obj_create(ui_MenuPage);
     lv_obj_set_width(ui_MenuGamePanel, 240);
@@ -729,8 +729,8 @@ void ui_MenuPage_screen_init(void)
     lv_obj_set_x(ui_MenuGameLabel, 60);
     lv_obj_set_y(ui_MenuGameLabel, 0);
     lv_obj_set_align(ui_MenuGameLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_MenuGameLabel, "游 戏");
-    lv_obj_set_style_text_font(ui_MenuGameLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_MenuGameLabel, "Games");
+    lv_obj_set_style_text_font(ui_MenuGameLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_MenuSetPanel = lv_obj_create(ui_MenuPage);
     lv_obj_set_width(ui_MenuSetPanel, 240);
@@ -770,8 +770,8 @@ void ui_MenuPage_screen_init(void)
     lv_obj_set_x(ui_MenuSetLabel, 60);
     lv_obj_set_y(ui_MenuSetLabel, 0);
     lv_obj_set_align(ui_MenuSetLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_MenuSetLabel, "设 置");
-    lv_obj_set_style_text_font(ui_MenuSetLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_MenuSetLabel, "Settings");
+    lv_obj_set_style_text_font(ui_MenuSetLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_MenuAbPanel = lv_obj_create(ui_MenuPage);
     lv_obj_set_width(ui_MenuAbPanel, 240);
@@ -811,8 +811,8 @@ void ui_MenuPage_screen_init(void)
     lv_obj_set_x(ui_MenuAbLabel, 60);
     lv_obj_set_y(ui_MenuAbLabel, 0);
     lv_obj_set_align(ui_MenuAbLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_MenuAbLabel, "关 于");
-    lv_obj_set_style_text_font(ui_MenuAbLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_MenuAbLabel, "About");
+    lv_obj_set_style_text_font(ui_MenuAbLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_MenuHealthPanel = lv_obj_create(ui_MenuPage);
     lv_obj_set_width(ui_MenuHealthPanel, 240);
