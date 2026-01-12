@@ -57,7 +57,7 @@ extern "C" {
 #endif
 
 #if HW_USE_BLE
-  #include "kt6328.h"
+  #include "KT6328.h"
 #endif
 
 #if HW_USE_BAT
@@ -69,7 +69,7 @@ extern "C" {
 #endif
 
 #if HW_USE_IMU
-  #include "MPU6050.h"
+  #include "mpu6050.h"
   #include "inv_mpu.h"
   #include "inv_mpu_dmp_motion_driver.h"
 #endif

@@ -13,7 +13,7 @@
 #include "lcd_init.h"
 #include "power.h"
 #include "CST816.h"
-#include "MPU6050.h"
+#include "mpu6050.h"
 #include "key.h"
 #include "WDOG.h"
 
