@@ -1,0 +1,49 @@
+name: Smoke
+
+on:
+  push:
+  pull_request:
+
+concurrency:
+  group: smoke-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  firmware-smoke:
+    name: Firmware Smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake gcc-arm-none-eabi
+
+      - name: BLE proto host smoke
+        run: |
+          bash tools/ble_proto_host_tests.sh
+
+      - name: Bootloader configure
+        working-directory: Software/IAP_F411
+        run: |
+          cmake -S . -B build \
+            -DCMAKE_TOOLCHAIN_FILE=cmake/arm-none-eabi.cmake \
+            -DCMAKE_BUILD_TYPE=MinSizeRel
+
+      - name: Bootloader build
+        run: |
+          cmake --build Software/IAP_F411/build --parallel
+
+      - name: Main app configure
+        working-directory: Software/OV_Watch
+        run: |
+          cmake -S . -B build \
+            -DCMAKE_TOOLCHAIN_FILE=cmake/arm-none-eabi.cmake \
+            -DCMAKE_BUILD_TYPE=MinSizeRel
+
+      - name: Main app build
+        run: |
+          cmake --build Software/OV_Watch/build --parallel
