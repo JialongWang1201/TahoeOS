@@ -164,8 +164,8 @@ void ui_SetPage_screen_init(void)
     lv_obj_set_x(ui_LightTimeLabel, 60);
     lv_obj_set_y(ui_LightTimeLabel, 0);
     lv_obj_set_align(ui_LightTimeLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_LightTimeLabel, "常亮时间");
-    lv_obj_set_style_text_font(ui_LightTimeLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_LightTimeLabel, "Screen On");
+    lv_obj_set_style_text_font(ui_LightTimeLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_TurnOffTimePanel = lv_obj_create(ui_SetPage);
     lv_obj_set_width(ui_TurnOffTimePanel, 240);
@@ -204,8 +204,8 @@ void ui_SetPage_screen_init(void)
     lv_obj_set_x(ui_TOffTimeLabel, 60);
     lv_obj_set_y(ui_TOffTimeLabel, 0);
     lv_obj_set_align(ui_TOffTimeLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_TOffTimeLabel, "熄屏时间");
-    lv_obj_set_style_text_font(ui_TOffTimeLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_TOffTimeLabel, "Screen Off");
+    lv_obj_set_style_text_font(ui_TOffTimeLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_DateTimeSetPanel = lv_obj_create(ui_SetPage);
     lv_obj_set_width(ui_DateTimeSetPanel, 240);
@@ -244,8 +244,8 @@ void ui_SetPage_screen_init(void)
     lv_obj_set_x(ui_DateTimeSetLabel, 60);
     lv_obj_set_y(ui_DateTimeSetLabel, 0);
     lv_obj_set_align(ui_DateTimeSetLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_DateTimeSetLabel, "时间日期");
-    lv_obj_set_style_text_font(ui_DateTimeSetLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_DateTimeSetLabel, "Date & Time");
+    lv_obj_set_style_text_font(ui_DateTimeSetLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_WristPanel = lv_obj_create(ui_SetPage);
     lv_obj_set_width(ui_WristPanel, 240);
@@ -282,8 +282,8 @@ void ui_SetPage_screen_init(void)
     lv_obj_set_x(ui_WristLabel, 60);
     lv_obj_set_y(ui_WristLabel, 0);
     lv_obj_set_align(ui_WristLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_WristLabel, "抬腕亮屏");
-    lv_obj_set_style_text_font(ui_WristLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_WristLabel, "Raise to Wake");
+    lv_obj_set_style_text_font(ui_WristLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_WristSwitch = lv_switch_create(ui_WristPanel);
     lv_obj_set_width(ui_WristSwitch, 55);
@@ -330,8 +330,8 @@ void ui_SetPage_screen_init(void)
     lv_obj_set_x(ui_PasswordLabel, 60);
     lv_obj_set_y(ui_PasswordLabel, 0);
     lv_obj_set_align(ui_PasswordLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_PasswordLabel, "密码设置");
-    lv_obj_set_style_text_font(ui_PasswordLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_PasswordLabel, "Passcode");
+    lv_obj_set_style_text_font(ui_PasswordLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     //events
 		lv_obj_add_event_cb(ui_SetPage, ui_event_SetPage, LV_EVENT_ALL, NULL);
