@@ -172,8 +172,8 @@ void ui_DateTimeSetPage_screen_init(void)
     lv_obj_set_x(ui_APPSyLabel, 20);
     lv_obj_set_y(ui_APPSyLabel, 0);
     lv_obj_set_align(ui_APPSyLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_APPSyLabel, "同步APP");
-    lv_obj_set_style_text_font(ui_APPSyLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_APPSyLabel, "Sync App");
+    lv_obj_set_style_text_font(ui_APPSyLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_DateSetPanel = lv_obj_create(ui_DateTimeSetPage);
     lv_obj_set_width(ui_DateSetPanel, 240);
@@ -195,8 +195,8 @@ void ui_DateTimeSetPage_screen_init(void)
     lv_obj_set_x(ui_DateSetLabel, 20);
     lv_obj_set_y(ui_DateSetLabel, 0);
     lv_obj_set_align(ui_DateSetLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_DateSetLabel, "日期设置");
-    lv_obj_set_style_text_font(ui_DateSetLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_DateSetLabel, "Date");
+    lv_obj_set_style_text_font(ui_DateSetLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_DateSetLabel1 = lv_label_create(ui_DateSetPanel);
     lv_obj_set_width(ui_DateSetLabel1, LV_SIZE_CONTENT);   /// 1
@@ -205,7 +205,7 @@ void ui_DateTimeSetPage_screen_init(void)
     lv_obj_set_y(ui_DateSetLabel1, -15);
     lv_obj_set_align(ui_DateSetLabel1, LV_ALIGN_RIGHT_MID);
     lv_label_set_text(ui_DateSetLabel1, ".");
-    lv_obj_set_style_text_font(ui_DateSetLabel1, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_DateSetLabel1, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_DateSetLabel2 = lv_label_create(ui_DateSetPanel);
     lv_obj_set_width(ui_DateSetLabel2, LV_SIZE_CONTENT);   /// 1
@@ -214,7 +214,7 @@ void ui_DateTimeSetPage_screen_init(void)
     lv_obj_set_y(ui_DateSetLabel2, -5);
     lv_obj_set_align(ui_DateSetLabel2, LV_ALIGN_RIGHT_MID);
     lv_label_set_text(ui_DateSetLabel2, ".");
-    lv_obj_set_style_text_font(ui_DateSetLabel2, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_DateSetLabel2, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_DateSetLabel3 = lv_label_create(ui_DateSetPanel);
     lv_obj_set_width(ui_DateSetLabel3, LV_SIZE_CONTENT);   /// 1
@@ -223,7 +223,7 @@ void ui_DateTimeSetPage_screen_init(void)
     lv_obj_set_y(ui_DateSetLabel3, 5);
     lv_obj_set_align(ui_DateSetLabel3, LV_ALIGN_RIGHT_MID);
     lv_label_set_text(ui_DateSetLabel3, ".");
-    lv_obj_set_style_text_font(ui_DateSetLabel3, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_DateSetLabel3, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_TimeSetPanel = lv_obj_create(ui_DateTimeSetPage);
     lv_obj_set_width(ui_TimeSetPanel, 240);
@@ -245,8 +245,8 @@ void ui_DateTimeSetPage_screen_init(void)
     lv_obj_set_x(ui_TimeSetLabel, 20);
     lv_obj_set_y(ui_TimeSetLabel, 0);
     lv_obj_set_align(ui_TimeSetLabel, LV_ALIGN_LEFT_MID);
-    lv_label_set_text(ui_TimeSetLabel, "时间设置");
-    lv_obj_set_style_text_font(ui_TimeSetLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_TimeSetLabel, "Time");
+    lv_obj_set_style_text_font(ui_TimeSetLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_TimeSetLabel1 = lv_label_create(ui_TimeSetPanel);
     lv_obj_set_width(ui_TimeSetLabel1, LV_SIZE_CONTENT);   /// 1
@@ -255,7 +255,7 @@ void ui_DateTimeSetPage_screen_init(void)
     lv_obj_set_y(ui_TimeSetLabel1, -15);
     lv_obj_set_align(ui_TimeSetLabel1, LV_ALIGN_RIGHT_MID);
     lv_label_set_text(ui_TimeSetLabel1, ".");
-    lv_obj_set_style_text_font(ui_TimeSetLabel1, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_TimeSetLabel1, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_TimeSetLabel2 = lv_label_create(ui_TimeSetPanel);
     lv_obj_set_width(ui_TimeSetLabel2, LV_SIZE_CONTENT);   /// 1
@@ -264,7 +264,7 @@ void ui_DateTimeSetPage_screen_init(void)
     lv_obj_set_y(ui_TimeSetLabel2, -5);
     lv_obj_set_align(ui_TimeSetLabel2, LV_ALIGN_RIGHT_MID);
     lv_label_set_text(ui_TimeSetLabel2, ".");
-    lv_obj_set_style_text_font(ui_TimeSetLabel2, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_TimeSetLabel2, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_TimeSetLabel3 = lv_label_create(ui_TimeSetPanel);
     lv_obj_set_width(ui_TimeSetLabel3, LV_SIZE_CONTENT);   /// 1
@@ -273,7 +273,7 @@ void ui_DateTimeSetPage_screen_init(void)
     lv_obj_set_y(ui_TimeSetLabel3, 5);
     lv_obj_set_align(ui_TimeSetLabel3, LV_ALIGN_RIGHT_MID);
     lv_label_set_text(ui_TimeSetLabel3, ".");
-    lv_obj_set_style_text_font(ui_TimeSetLabel3, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_TimeSetLabel3, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
 		lv_obj_add_event_cb(ui_DateTimeSetPage, ui_event_DateTimeSetPage, LV_EVENT_ALL, NULL);
 		lv_obj_add_event_cb(ui_DateSetPanel, ui_event_DateSetPanel, LV_EVENT_ALL, NULL);

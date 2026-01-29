@@ -59,6 +59,27 @@ cmake --build build --parallel
 
 Artifacts are generated in `Software/IAP_F411/build/` and are not tracked by git.
 
+## CI Smoke Check
+
+The repository includes a smoke workflow at `.github/workflows/smoke.yml`.
+It is intended to quickly validate the minimum firmware path on each push or PR:
+
+- BLE host protocol tests: `bash tools/ble_proto_host_tests.sh`
+- Bootloader configure + build: `Software/IAP_F411`
+- Main app configure + build: `Software/OV_Watch`
+
+To reproduce the same checks locally:
+
+```
+bash tools/ble_proto_host_tests.sh
+cd Software/IAP_F411
+cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=cmake/arm-none-eabi.cmake -DCMAKE_BUILD_TYPE=MinSizeRel
+cmake --build build --parallel
+cd ../OV_Watch
+cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=cmake/arm-none-eabi.cmake -DCMAKE_BUILD_TYPE=MinSizeRel
+cmake --build build --parallel
+```
+
 ## Flash (Bootloader)
 
 ```
