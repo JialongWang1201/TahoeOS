@@ -14,4 +14,4 @@ Hardware/
 
 # CMake/build outputs
 **/build/
-**/build_*/
+

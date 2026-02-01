@@ -110,8 +110,8 @@ void ui_LOffTimeSetPage_screen_init(void)
     lv_obj_set_x(ui_LTimeSetUnitLabel, 60);
     lv_obj_set_y(ui_LTimeSetUnitLabel, 0);
     lv_obj_set_align(ui_LTimeSetUnitLabel, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_LTimeSetUnitLabel, "秒");
-    lv_obj_set_style_text_font(ui_LTimeSetUnitLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_LTimeSetUnitLabel, "s");
+    lv_obj_set_style_text_font(ui_LTimeSetUnitLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_LTimeSetOKButton = lv_btn_create(ui_LOffTimeSetPage);
     lv_obj_set_width(ui_LTimeSetOKButton, 240);
@@ -180,8 +180,8 @@ void ui_TOffTimeSetPage_screen_init(void)
     lv_obj_set_x(ui_TTimeSetUnitLabel, 60);
     lv_obj_set_y(ui_TTimeSetUnitLabel, 0);
     lv_obj_set_align(ui_TTimeSetUnitLabel, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_TTimeSetUnitLabel, "秒");
-    lv_obj_set_style_text_font(ui_TTimeSetUnitLabel, &ui_font_Cuyuan20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_label_set_text(ui_TTimeSetUnitLabel, "s");
+    lv_obj_set_style_text_font(ui_TTimeSetUnitLabel, &lv_font_montserrat_18, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_TTimeSetOKButton = lv_btn_create(ui_TOffTimeSetPage);
     lv_obj_set_width(ui_TTimeSetOKButton, 240);
