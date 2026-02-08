@@ -10,7 +10,7 @@
 #include "ui_SetPage.h"
 #include "ui_HRPage.h"
 #include "ui_SPO2Page.h"
-#include "ui_ENVPage.h"
+#include "ui_EnvPage.h"
 #include "ui_CompassPage.h"
 #include "ui_SportPage.h"
 #include "main.h"
