@@ -320,96 +320,89 @@ void MPUCheckTask(void *argument)
 }
 
 /**
+  * @brief  Read one HR sample from EM7028, update HrRate, and optionally
+  *         update SPO2 measurement or HR health history.
+  *
+  * @param  hr_history_divider  Pointer to the caller's divider counter.
+  *                             Incremented each call; resets and records a
+  *                             health sample every USER_HEALTH_HR_SAMPLE_DIVIDER
+  *                             calls.  Pass NULL when update_spo2 is non-zero.
+  * @param  update_spo2         Non-zero: feed raw sample to SPO2 algorithm
+  *                             (SPO2 page mode).  Zero: feed HR to sport
+  *                             session and health history.
+  */
+static void user_HRSample_Update(uint8_t *hr_history_divider, uint8_t update_spo2)
+{
+    uint16_t sample;
+    uint8_t hr_temp;
+
+    EM7028_hrs_EnableContinuous();
+    if (HWInterface.HR_meter.ConnectionError) {
+        return;
+    }
+
+    sample = EM7028_Get_HRS1();
+    vTaskSuspendAll();
+    hr_temp = HR_Calculate(sample, user_HR_timecount);
+    xTaskResumeAll();
+
+    if (HWInterface.HR_meter.HrRate != hr_temp && hr_temp > 50 && hr_temp < 120) {
+        HWInterface.HR_meter.HrRate = hr_temp;
+    }
+
+    if (update_spo2) {
+        user_SPO2UpdateMeasurement(sample);
+    } else {
+        ui_SportSessionHandleHrSample(HWInterface.HR_meter.HrRate);
+        if (++(*hr_history_divider) >= USER_HEALTH_HR_SAMPLE_DIVIDER) {
+            *hr_history_divider = 0u;
+            user_HealthTrackHrSample(HWInterface.HR_meter.HrRate);
+        }
+    }
+}
+
+/**
   * @brief  HR data renew task
   * @param  argument: Not used
   * @retval None
   */
 void HRDataUpdateTask(void *argument)
 {
-	uint8_t IdleBreakstr=0;
-    uint16_t spo2_sample=0;
-	uint8_t hr_temp=0;
+    uint8_t IdleBreakstr = 0;
     uint8_t hr_history_divider = 0u;
-	while(1)
-	{
+
+    while(1)
+    {
         Page_t *now_page = Page_Get_NowPage();
 
-        if(now_page->page_obj != &ui_SPO2Page && user_spo2_measurement.active)
-        {
+        if (now_page->page_obj != &ui_SPO2Page && user_spo2_measurement.active) {
             user_SPO2ResetMeasurement();
         }
 
-		if(now_page->page_obj == &ui_HRPage)
-		{
-			osMessageQueuePut(IdleBreak_MessageQueue, &IdleBreakstr, 0, 1);
-			//sensor wake up
-			EM7028_hrs_EnableContinuous();
-			//receive the sensor wakeup message, sensor wakeup
-			if(!HWInterface.HR_meter.ConnectionError)
-			{
-				//Hr messure
-				vTaskSuspendAll();
-				hr_temp = HR_Calculate(EM7028_Get_HRS1(),user_HR_timecount);
-				xTaskResumeAll();
-					if(HWInterface.HR_meter.HrRate != hr_temp && hr_temp>50 && hr_temp<120)
-					{
-						HWInterface.HR_meter.HrRate = hr_temp;
-					}
-	                ui_SportSessionHandleHrSample(HWInterface.HR_meter.HrRate);
-                    if (++hr_history_divider >= USER_HEALTH_HR_SAMPLE_DIVIDER)
-                    {
-                        hr_history_divider = 0u;
-                        user_HealthTrackHrSample(HWInterface.HR_meter.HrRate);
-                    }
-				}
-			}
-	        else if(ui_SportSessionIsRunning())
-	        {
-            EM7028_hrs_EnableContinuous();
-            if(!HWInterface.HR_meter.ConnectionError)
-            {
-                vTaskSuspendAll();
-                hr_temp = HR_Calculate(EM7028_Get_HRS1(),user_HR_timecount);
-                xTaskResumeAll();
-	                if(HWInterface.HR_meter.HrRate != hr_temp && hr_temp>50 && hr_temp<120)
-	                {
-	                    HWInterface.HR_meter.HrRate = hr_temp;
-	                }
-	                ui_SportSessionHandleHrSample(HWInterface.HR_meter.HrRate);
-                    if (++hr_history_divider >= USER_HEALTH_HR_SAMPLE_DIVIDER)
-                    {
-                        hr_history_divider = 0u;
-                        user_HealthTrackHrSample(HWInterface.HR_meter.HrRate);
-                    }
-	            }
-	        }
-	        else if(now_page->page_obj == &ui_SPO2Page)
-	        {
+        if (now_page->page_obj == &ui_HRPage)
+        {
             osMessageQueuePut(IdleBreak_MessageQueue, &IdleBreakstr, 0, 1);
-            EM7028_hrs_EnableContinuous();
-            if(!HWInterface.HR_meter.ConnectionError)
-            {
-                spo2_sample = EM7028_Get_HRS1();
-                vTaskSuspendAll();
-                hr_temp = HR_Calculate(spo2_sample,user_HR_timecount);
-                xTaskResumeAll();
-                if(HWInterface.HR_meter.HrRate != hr_temp && hr_temp>50 && hr_temp<120)
-                {
-                    HWInterface.HR_meter.HrRate = hr_temp;
-                }
-                user_SPO2UpdateMeasurement(spo2_sample);
+            user_HRSample_Update(&hr_history_divider, 0);
+        }
+        else if (ui_SportSessionIsRunning())
+        {
+            user_HRSample_Update(&hr_history_divider, 0);
+        }
+        else if (now_page->page_obj == &ui_SPO2Page)
+        {
+            osMessageQueuePut(IdleBreak_MessageQueue, &IdleBreakstr, 0, 1);
+            if (HWInterface.HR_meter.ConnectionError) {
+                user_SPO2ResetMeasurement();
+            } else {
+                user_HRSample_Update(&hr_history_divider, 1);
             }
-            else
-            {
-	                user_SPO2ResetMeasurement();
-	            }
-	        }
-            else
-            {
-                hr_history_divider = 0u;
-            }
-			osDelay(50);
-	}
+        }
+        else
+        {
+            hr_history_divider = 0u;
+        }
+        osDelay(50);
+    }
 }
 
 
