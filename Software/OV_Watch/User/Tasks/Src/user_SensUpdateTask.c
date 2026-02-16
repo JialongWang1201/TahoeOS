@@ -406,6 +406,61 @@ void HRDataUpdateTask(void *argument)
 }
 
 
+/* -----------------------------------------------------------------------
+ * Sensor poll functions — one per physical sensor.
+ * Called by the dispatch loop below; never called directly.
+ * ----------------------------------------------------------------------- */
+
+static void sensor_poll_env(void)
+{
+    float humi, temp;
+    HWInterface.AHT21.GetHumiTemp(&humi, &temp);
+    if (temp > -10 && temp < 50 && humi > 0 && humi < 100) {
+        HWInterface.AHT21.temperature = (int8_t)temp;
+        HWInterface.AHT21.humidity    = (uint8_t)humi;
+        user_HealthTrackEnvSample((int8_t)temp, (uint8_t)humi);
+    }
+}
+
+static void sensor_poll_compass(void)
+{
+    int16_t Xa, Ya, Za, Xm, Ym, Zm;
+    LSM303DLH_Wakeup();
+    LSM303_ReadAcceleration(&Xa, &Ya, &Za);
+    LSM303_ReadMagnetic(&Xm, &Ym, &Zm);
+    float heading = Azimuth_Calculate(Xa, Ya, Za, Xm, Ym, Zm);
+    if (heading < 0) { heading += 360.0f; }
+    if (heading >= 0 && heading <= 360) {
+        HWInterface.Ecompass.direction = (uint16_t)heading;
+    }
+}
+
+static void sensor_poll_barometer(void)
+{
+    HWInterface.Barometer.altitude = (int16_t)Altitude_Calculate();
+}
+
+static void sensor_poll_imu(void)
+{
+    HWInterface.IMU.Steps = HWInterface.IMU.GetSteps();
+}
+
+/* -----------------------------------------------------------------------
+ * Sensor dispatch table
+ *
+ * Each entry is polled at poll_interval_ms when *error_flag == 0.
+ * The task loop runs at SENSOR_TASK_TICK_MS (50 ms); last_tick is
+ * initialised to 0 so every sensor fires on the first iteration.
+ * ----------------------------------------------------------------------- */
+static sensor_dispatch_entry_t sensor_table[] = {
+    /* poll_interval_ms   poll_fn                error_flag                           last_tick */
+    { 500U, sensor_poll_env,       &HWInterface.AHT21.ConnectionError,      0U },
+    { 500U, sensor_poll_compass,   &HWInterface.Ecompass.ConnectionError,    0U },
+    { 500U, sensor_poll_barometer, &HWInterface.Barometer.ConnectionError,   0U },
+    { 500U, sensor_poll_imu,       &HWInterface.IMU.ConnectionError,         0U },
+};
+#define SENSOR_TABLE_SIZE (sizeof(sensor_table) / sizeof(sensor_table[0]))
+
 /**
   * @brief  Sensor data update task
   * @param  argument: Not used
@@ -413,12 +468,13 @@ void HRDataUpdateTask(void *argument)
   */
 void SensorDataUpdateTask(void *argument)
 {
-	uint8_t value_strbuf[6];
-	uint8_t IdleBreakstr=0;
+    uint8_t  IdleBreakstr       = 0;
     uint16_t health_sync_counter = 0u;
     uint16_t health_save_counter = 0u;
-	while(1)
-	{
+
+    while (1)
+    {
+        /* ---- health: step sync every SENSOR_HEALTH_STEP_SYNC_TICKS * 50ms = 10 s ---- */
         if (health_sync_counter == 0u)
         {
             HW_DateTimeTypeDef nowdatetime;
@@ -428,13 +484,16 @@ void SensorDataUpdateTask(void *argument)
             {
                 HWInterface.IMU.SetSteps(0);
                 HWInterface.IMU.Steps = 0u;
-                AppData_UpdateHealthSteps(nowdatetime.Year, nowdatetime.Month, nowdatetime.Date, nowdatetime.WeekDay, 0u);
+                AppData_UpdateHealthSteps(nowdatetime.Year, nowdatetime.Month,
+                                          nowdatetime.Date, nowdatetime.WeekDay, 0u);
                 User_RequestDataSave();
             }
             else if (!HWInterface.IMU.ConnectionError)
             {
                 HWInterface.IMU.Steps = HWInterface.IMU.GetSteps();
-                AppData_UpdateHealthSteps(nowdatetime.Year, nowdatetime.Month, nowdatetime.Date, nowdatetime.WeekDay, HWInterface.IMU.Steps);
+                AppData_UpdateHealthSteps(nowdatetime.Year, nowdatetime.Month,
+                                          nowdatetime.Date, nowdatetime.WeekDay,
+                                          HWInterface.IMU.Steps);
                 if (health_day_state == APPDATA_HEALTH_DAY_INITIALIZED)
                 {
                     User_RequestDataSave();
@@ -445,134 +504,67 @@ void SensorDataUpdateTask(void *argument)
                 User_RequestDataSave();
             }
         }
-
-		// Update the sens data showed in Home
-		uint8_t HomeUpdataStr;
-		if(osMessageQueueGet(HomeUpdata_MessageQueue, &HomeUpdataStr, NULL, 0)==osOK)
-		{
-			//bat
-			uint8_t value_strbuf[5];
-
-			HWInterface.Power.power_remain = HWInterface.Power.BatCalculate();
-			if(HWInterface.Power.power_remain>0 && HWInterface.Power.power_remain<=100)
-			{}
-			else
-			{HWInterface.Power.power_remain = 0;}
-
-			//steps
-			if(!(HWInterface.IMU.ConnectionError))
-			{
-				HWInterface.IMU.Steps = HWInterface.IMU.GetSteps();
-			}
-
-			//temp and humi
-			if(!(HWInterface.AHT21.ConnectionError))
-			{
-				//temp and humi messure
-				float humi,temp;
-				HWInterface.AHT21.GetHumiTemp(&humi,&temp);
-				//check
-				if(temp>-10 && temp<50 && humi>0 && humi<100)
-				{
-					// ui_EnvTempValue = (int8_t)temp;
-					// ui_EnvHumiValue = (int8_t)humi;
-					HWInterface.AHT21.humidity = humi;
-					HWInterface.AHT21.temperature = temp;
-                    user_HealthTrackEnvSample((int8_t)temp, (uint8_t)humi);
-				}
-			}
-
-			//send data save message queue
-			uint8_t Datastr = 3;
-			osMessageQueuePut(DataSave_MessageQueue, &Datastr, 0, 1);
-
-		}
-
-
-		// SPO2 Page
-		if(Page_Get_NowPage()->page_obj == &ui_SPO2Page)
-		{
-			osMessageQueuePut(IdleBreak_MessageQueue, &IdleBreakstr, 0, 1);
-			// SPO2 samples are updated by HRDataUpdateTask at 50ms cadence.
-		}
-		// Env Page
-		else if(Page_Get_NowPage()->page_obj == &ui_EnvPage)
-		{
-			osMessageQueuePut(IdleBreak_MessageQueue, &IdleBreakstr, 0, 1);
-			//receive the sensor wakeup message, sensor wakeup
-			if(!HWInterface.AHT21.ConnectionError)
-			{
-				//temp and humi messure
-				float humi,temp;
-				HWInterface.AHT21.GetHumiTemp(&humi,&temp);
-				//check
-				if(temp>-10 && temp<50 && humi>0 && humi<100)
-				{
-					HWInterface.AHT21.temperature = (int8_t)temp;
-					HWInterface.AHT21.humidity = (int8_t)humi;
-                    user_HealthTrackEnvSample((int8_t)temp, (uint8_t)humi);
-				}
-			}
-
-		}
-        else if(Page_Get_NowPage()->page_obj == &ui_SportPage || ui_SportSessionIsRunning())
-        {
-            osMessageQueuePut(IdleBreak_MessageQueue, &IdleBreakstr, 0, 1);
-            if(!HWInterface.IMU.ConnectionError)
-            {
-                HWInterface.IMU.Steps = HWInterface.IMU.GetSteps();
-            }
-            if(!HWInterface.Barometer.ConnectionError)
-            {
-                HWInterface.Barometer.altitude = (int16_t)Altitude_Calculate();
-            }
-        }
-		// Compass page
-		else if(Page_Get_NowPage()->page_obj == &ui_CompassPage)
-		{
-			osMessageQueuePut(IdleBreak_MessageQueue, &IdleBreakstr, 0, 1);
-			//receive the sensor wakeup message, sensor wakeup
-			LSM303DLH_Wakeup();
-			//SPL_Wakeup();
-			//if the sensor is no problem
-			if(!HWInterface.Ecompass.ConnectionError)
-			{
-				//messure
-				int16_t Xa,Ya,Za,Xm,Ym,Zm;
-				LSM303_ReadAcceleration(&Xa,&Ya,&Za);
-				LSM303_ReadMagnetic(&Xm,&Ym,&Zm);
-				float temp = Azimuth_Calculate(Xa,Ya,Za,Xm,Ym,Zm)+0;//0 offset
-				if(temp<0)
-				{temp+=360;}
-				//check
-				if(temp>=0 && temp<=360)
-				{
-					HWInterface.Ecompass.direction = (uint16_t)temp;
-				}
-			}
-			//if the sensor is no problem
-			if(!HWInterface.Barometer.ConnectionError)
-			{
-				//messure
-				float alti = Altitude_Calculate();
-				//check
-				if(1)
-				{
-					HWInterface.Barometer.altitude = (int16_t)alti;
-				}
-			}
-		}
-
         health_sync_counter++;
-        if (health_sync_counter >= USER_HEALTH_STEP_SYNC_LOOPS)
+        if (health_sync_counter >= SENSOR_HEALTH_STEP_SYNC_TICKS)
         {
             health_sync_counter = 0u;
         }
 
+        /* ---- on-demand home-page update (battery, steps, env) ---- */
+        uint8_t HomeUpdataStr;
+        if (osMessageQueueGet(HomeUpdata_MessageQueue, &HomeUpdataStr, NULL, 0) == osOK)
+        {
+            HWInterface.Power.power_remain = HWInterface.Power.BatCalculate();
+            if (HWInterface.Power.power_remain > 100) {
+                HWInterface.Power.power_remain = 0;
+            }
+            if (!HWInterface.IMU.ConnectionError) {
+                HWInterface.IMU.Steps = HWInterface.IMU.GetSteps();
+            }
+            if (!HWInterface.AHT21.ConnectionError) {
+                float humi, temp;
+                HWInterface.AHT21.GetHumiTemp(&humi, &temp);
+                if (temp > -10 && temp < 50 && humi > 0 && humi < 100) {
+                    HWInterface.AHT21.temperature = (int8_t)temp;
+                    HWInterface.AHT21.humidity    = (uint8_t)humi;
+                    user_HealthTrackEnvSample((int8_t)temp, (uint8_t)humi);
+                }
+            }
+            uint8_t Datastr = 3;
+            osMessageQueuePut(DataSave_MessageQueue, &Datastr, 0, 1);
+        }
+
+        /* ---- idle-break: keep screen on while sensor pages are active ---- */
+        {
+            lv_obj_t *now_obj = Page_Get_NowPage()->page_obj;
+            if (now_obj == &ui_SPO2Page    ||
+                now_obj == &ui_EnvPage     ||
+                now_obj == &ui_CompassPage ||
+                now_obj == &ui_SportPage   ||
+                ui_SportSessionIsRunning())
+            {
+                osMessageQueuePut(IdleBreak_MessageQueue, &IdleBreakstr, 0, 1);
+            }
+        }
+
+        /* ---- sensor dispatch table (tick-based scheduling) ---- */
+        {
+            uint32_t now = osKernelGetTickCount();
+            for (size_t i = 0; i < SENSOR_TABLE_SIZE; i++) {
+                sensor_dispatch_entry_t *e = &sensor_table[i];
+                if (e->error_flag && *e->error_flag) { continue; }
+                if ((uint32_t)(now - e->last_tick) >= e->poll_interval_ms) {
+                    e->poll_fn();
+                    e->last_tick = now;
+                }
+            }
+        }
+
+        /* ---- health: dirty-data save every SENSOR_HEALTH_SAVE_TICKS * 50ms = 10 min ---- */
         if (AppData_IsHealthDirty())
         {
             health_save_counter++;
-            if (health_save_counter >= USER_HEALTH_SAVE_SYNC_LOOPS)
+            if (health_save_counter >= SENSOR_HEALTH_SAVE_TICKS)
             {
                 health_save_counter = 0u;
                 User_RequestDataSave();
@@ -583,6 +575,6 @@ void SensorDataUpdateTask(void *argument)
             health_save_counter = 0u;
         }
 
-		osDelay(500);
-	}
+        osDelay(SENSOR_TASK_TICK_MS);
+    }
 }
