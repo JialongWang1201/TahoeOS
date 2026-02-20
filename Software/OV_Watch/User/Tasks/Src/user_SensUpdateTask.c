@@ -536,7 +536,7 @@ void SensorDataUpdateTask(void *argument)
 
         /* ---- idle-break: keep screen on while sensor pages are active ---- */
         {
-            lv_obj_t *now_obj = Page_Get_NowPage()->page_obj;
+            lv_obj_t **now_obj = Page_Get_NowPage()->page_obj;
             if (now_obj == &ui_SPO2Page    ||
                 now_obj == &ui_EnvPage     ||
                 now_obj == &ui_CompassPage ||
