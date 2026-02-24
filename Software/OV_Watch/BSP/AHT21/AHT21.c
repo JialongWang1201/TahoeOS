@@ -49,7 +49,7 @@ uint8_t AHT_Init(void)
 	
 	delay_ms(40);
 	
-	if(AHT_Read_Status()&&0x08!=0x08)
+	if ((AHT_Read_Status() & 0x08U) != 0x08U)
 	{
 		IICStart(&AHT_bus);
 		IICSendByte(&AHT_bus,0x70);
@@ -71,7 +71,6 @@ uint8_t AHT_Init(void)
 uint8_t AHT_Read(float *humi, float *temp)
 {
 	uint8_t cnt=5;
-	uint8_t  Byte_1th=0;
 	uint8_t  Byte_2th=0;
 	uint8_t  Byte_3th=0;
 	uint8_t  Byte_4th=0;
@@ -91,7 +90,7 @@ uint8_t AHT_Read(float *humi, float *temp)
 	IICStop(&AHT_bus);	
 	
 	delay_ms(80);
-	while(AHT_Read_Status()&0x80==0x80 && cnt)
+	while (((AHT_Read_Status() & 0x80U) == 0x80U) && cnt)
 	{
 		delay_ms(5);
 		cnt--;
@@ -103,7 +102,7 @@ uint8_t AHT_Read(float *humi, float *temp)
 	IICStart(&AHT_bus);
 	IICSendByte(&AHT_bus,0x71);
 	IICWaitAck(&AHT_bus);
-	Byte_1th = IICReceiveByte(&AHT_bus);
+	(void)IICReceiveByte(&AHT_bus);
 	IICSendAck(&AHT_bus);
 	Byte_2th = IICReceiveByte(&AHT_bus);
 	IICSendAck(&AHT_bus);
