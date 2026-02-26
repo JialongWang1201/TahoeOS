@@ -483,8 +483,8 @@ void SensorDataUpdateTask(void *argument)
 				{
 					// ui_EnvTempValue = (int8_t)temp;
 					// ui_EnvHumiValue = (int8_t)humi;
-					HWInterface.AHT21.humidity = humi;
-					HWInterface.AHT21.temperature = temp;
+					HWInterface.AHT21.humidity = (uint8_t)humi;
+					HWInterface.AHT21.temperature = (int8_t)temp;
                     user_HealthTrackEnvSample((int8_t)temp, (uint8_t)humi);
 				}
 			}
