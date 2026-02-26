@@ -200,7 +200,7 @@ typedef struct
 typedef struct
 {
   uint8_t ConnectionError;
-  uint8_t temperature;
+  int8_t  temperature;
   uint8_t humidity;
   uint8_t (*Init)(void);
   void (*GetHumiTemp)(float *humi, float *temp);
