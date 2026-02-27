@@ -112,7 +112,6 @@ jobs:
           python3 tests/main.py build
 
       - name: Run tests
-        continue-on-error: true
         run: |
           cd lv_sim_vscode_win/user_test/lvgl
           python3 tests/main.py test
