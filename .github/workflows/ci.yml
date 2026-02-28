@@ -78,8 +78,10 @@ jobs:
             --inline-suppr \
             --suppress=missingIncludeSystem \
             --suppress=unusedFunction \
+            --suppress=syntaxError:*GUI_App/Fonts/* \
+            --suppress=preprocessorErrorDirective:*GUI_App/ui.c \
             --force \
-            --error-exitcode=0 \
+            --error-exitcode=1 \
             --output-file=cppcheck.txt \
             Software/OV_Watch/Core \
             Software/OV_Watch/User \

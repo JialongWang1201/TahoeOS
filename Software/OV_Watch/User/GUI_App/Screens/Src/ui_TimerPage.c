@@ -42,7 +42,7 @@ static void ui_TimerPage_Data_init(void)
 /////////////////////// Timer //////////////////////
 static void LabelRefresh_timer(lv_timer_t * timer)
 {
-    uint8_t strbuf[2];
+    char strbuf[3]; /* "%02d" needs 2 digits + null terminator */
 
     sprintf(strbuf,"%02d",ui_TimerPage_min);
     lv_label_set_text(ui_TimerMinLabel, strbuf);

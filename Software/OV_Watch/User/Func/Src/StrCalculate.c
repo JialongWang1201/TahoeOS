@@ -132,7 +132,8 @@ void CalculateOne(NumStack_t * numstack, SymStack_t * symstack)
 {
     caldata_t temp;
     temp.datatype = NUMBER_TYPE;
-    temp.symbol = 0;
+    temp.number   = 0.0f; /* default if operator is unrecognised */
+    temp.symbol   = 0;
     //计算数字栈中的顶部两数,结果存到temp中
     if(symstack->data[symstack->Top_Point-1] == '+')
         temp.number = (numstack->data[numstack->Top_Point-2]) + (numstack->data[numstack->Top_Point-1]);
